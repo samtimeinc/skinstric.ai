@@ -1,0 +1,201 @@
+/* Navbar Styles */
+.navbar {
+  width: 100%;
+  position: relative;
+  z-index: 999;
+}
+
+.navbar .container {
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--color-background);
+}
+
+.logo {
+
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.intro,
+.brand {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.intro,
+.description {
+  color: #1a1b1c83;
+}
+
+.enter-code {
+  font-size: 9px;
+  color: var(--color-background);
+  background-color: #171717;
+  padding: 8px 16px;
+  cursor: not-allowed;
+}
+
+/*  Main Section Styles*/
+.main {
+  height: 100%;
+  width: 100%;
+}
+
+.main .container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.title {
+  font-size: 48px;
+  letter-spacing: -2;
+  line-height: 1.1;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.highlight {
+  display: inline-block;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.description {
+  margin-top: 16px;
+  max-width: 310px;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+}
+
+.enter-experience {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.enter-experience p {
+  font-size: 12px;
+  font-weight: 700;
+
+}
+
+.diamond-large,
+.diamond-small {
+  position: absolute;
+  top: 50%;
+  border: 1px dotted #A0A4AB;
+  pointer-events: none;
+  z-index: -100;
+  transition: opacity 0.4s ease;
+}
+
+.diamond-large {
+  left: 50%;
+  width: 420px;
+  height: 420px;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.diamond-small {
+  width: 350px;
+  height: 350px;
+  right: 50%;
+  transform: translate(50%, -50%) rotate(45deg);
+}
+
+ /*  'Discover AI' & 'Take Test' Navigation */
+  .discover,
+  .take-test {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transition: opacity 0.4s ease;
+  }
+
+  .discover div,
+  .take-test div {
+    font-size: 14px;
+  }
+
+  .discover {
+    transform: translateY(-50%) translateX(50%) ;
+  }
+
+  .take-test {
+    transform: translateY(-50%) translateX(-50%) ;
+    right: 0;
+  }
+
+/*  Media Queries */
+@media (min-width: 480px) {
+  .title {
+    font-size: 60px;
+  }
+}
+@media (min-width: 1024px) {
+  .diamond-large {
+    left:-36;
+  }
+  .diamond-small {
+    width: 420px;
+    height: 420px;
+    right: -36;
+  }
+  .enter-experience {
+    display: none;
+  }
+  .title {
+    font-size: 100px;
+    letter-spacing: -5px;
+    transform: translateY(-40px);
+  }
+  .description {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(-100%) translateX(10%);
+    text-align: left;
+  }
+  .discover, .take-test {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .discover:hover ~ .diamond-small,
+  .discover:hover ~ .take-test {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .main:has(.take-test:hover) .diamond-large,
+  .main:has(.take-test:hover) .discover {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .main:has(.discover:hover) .title {
+    transform: translateY(-40px)
+    translateX(20%);
+  }
+  .main:has(.discover:hover) .highlight {
+    transform: translateX(32%);
+  }
+  .main:has(.take-test:hover) .title {
+    transform: translateY(-40px)
+    translateX(-20%);
+  }
+  .main:has(.take-test:hover) .highlight {
+    transform: translateX(-32%);
+  }
+}

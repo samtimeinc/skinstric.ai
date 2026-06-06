@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Roobert from "next/font/local";
 import "./globals.css";
+import Navbar from "@/components/navbar";
 
 const roobert = Roobert({
   variable: "--font-roobert",
@@ -22,7 +23,11 @@ export default function RootLayout({
       lang="en"
       className={`${roobert.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className={`${roobert.className} min-h-full flex flex-col`}>
+        <Navbar />
+        {children}
+
+      </body>
     </html>
   );
 }

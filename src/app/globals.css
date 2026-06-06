@@ -1,25 +1,50 @@
 @import "tailwindcss";
 
+/* 1. Design Tokens */
 :root {
-  --background: #ffffff;
+  --background: #FCFCFC;
   --foreground: #171717;
+  --gray-medium: #666666;
+  --border-default: #000000;
 }
 
+/* 2. Tailwind Theme Mapping */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-border: var(--border-default);
   --font-roobert: var(--font-roobert);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
+/* 3. Base Element Resets & Defaults */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-roobert), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  letter-spacing: -.75;
+}
+
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+/* Global Focus States for WCAG 2.1 AA */
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+button {
+  font-family: inherit;
 }
