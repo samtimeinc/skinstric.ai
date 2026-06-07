@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
+import axios from 'axios';
+import { useTesting } from './TestingContext';
 
 const TestingPage = () => {
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [step, setStep] = useState<'name' | 'location' | 'submitting' | 'success'>('name');
-  const [error, setError] = useState('');
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
+    const [error, setError] = useState('');
+    
+    const { step, setStep } = useTesting();
 
   const validateInput = (value: string) => {
     // Regex allowing only letters and spaces. No numbers or special characters.
@@ -39,20 +42,21 @@ const TestingPage = () => {
 
   const sendDataToAPI = async (data: { name: string; location: string }) => {
     try {
-      console.log('Sending payload to external API:', JSON.stringify(data));
-      // Example fetch call to external API
-      // const response = await fetch('https://your-api-endpoint.com/v1/inference', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
-      // });
-      // const result = await response.json();
-      // Handle navigation to dashboard with result data here
-      setStep('success');
+      const response = await axios.post(
+        "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseOne",
+        data
+      );
+      const userAddedToList = response.data.success;
+      if (userAddedToList) {
+          setStep('success');
+      } else {
+        setError('Failed to analyze. Please try again.');
+        setStep('name');
+      }
     } catch (err) {
       console.error('API submission failed:', err);
       setError('Failed to analyze. Please try again.');
-      setStep('location');
+      setStep('name');
     }
   };
 
