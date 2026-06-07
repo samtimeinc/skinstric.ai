@@ -1,0 +1,225 @@
+.main {
+    height: calc(100vh - 164px);
+}
+
+.start-message {
+    padding: 16px 32px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/*  Footer  */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 32px;
+  margin-bottom: 24px;
+  z-index: 999;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-button-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.back-button,
+.proceed-button {
+    display: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  align-items: center;
+  outline: none;
+}
+
+.nav-diamond-proceed,
+.nav-diamond-back {
+  position: absolute;
+  bottom: -10%;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #A0A4AB;
+  cursor: pointer;
+}
+
+.nav-diamond-proceed {
+    transform: translate(4%, -40%) rotate(45deg);
+}
+
+.nav-diamond-back {
+    transform: translate(-20%, -40%) rotate(-45deg);
+}
+
+.form-fields {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+}
+
+.form-fields form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form-message {
+    text-align: center;
+    color: #c0c4cc;
+}
+
+.input {
+    max-width: 400px;
+    width: 100%;
+    font-size: 48px;
+    letter-spacing: -0.75;
+    border: none;
+    border-bottom: 1px solid #A0A4AB;
+    text-align: center;
+    background: transparent;
+    outline: none;
+}
+
+.processing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 4px;
+  font-size: 48px;
+  line-height: 0.5;
+  color: #c0c4cc;
+}
+
+.loading-dots span {
+  animation: wave 1.4s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.error-message {
+  font-size: 14px;
+  color: #ff4d4f;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.diamond-one,
+.diamond-two,
+.diamond-three {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-image: 
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px),
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px),
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px),
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px);
+    background-size: 12px 1px, 1px 12px, 12px 1px, 1px 12px;
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+    pointer-events: none;
+    z-index: -100;
+}
+
+.diamond-one {
+    height: 300px;
+    width: 300px;
+    animation: diamond-rotation 40s linear infinite;
+}
+
+.diamond-two {
+    height: 340px;
+    width: 340px;
+    opacity: 0.8;
+    animation: diamond-rotation 35s linear infinite;
+}
+.diamond-three {
+    height: 380px;
+    width: 380px;
+    opacity: 0.6;
+    animation: diamond-rotation 30s linear infinite;
+}
+
+@keyframes diamond-rotation {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(405deg);
+    }
+}
+
+@keyframes wave {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+/*  Media Queries   */
+@media (min-width: 640px) {
+    .back-button,
+    .proceed-button {
+        display: flex;
+    }
+    .nav-diamond-back,
+    .nav-diamond-proceed {
+        display: none;
+    }
+    .input {
+        font-size: 60px;
+        letter-spacing: -2;
+        max-width: 480px;
+    
+    }
+}
+
+@media (min-width: 768px) {
+    .diamond-one {
+        height: 500px;
+        width: 500px;
+    }
+    .diamond-two {
+        height: 540px;
+        width: 540px;
+    }
+    .diamond-three {
+        height: 580px;
+        width: 580px;
+    }
+}

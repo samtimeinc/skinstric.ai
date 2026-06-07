@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 16px 32px;
   background-color: var(--color-background);
 }
 
@@ -116,28 +116,28 @@
   transform: translate(50%, -50%) rotate(45deg);
 }
 
- /*  'Discover AI' & 'Take Test' Navigation */
-  .discover,
-  .take-test {
-    display: none;
-    position: absolute;
-    top: 50%;
-    transition: opacity 0.4s ease;
-  }
+/*  'Discover AI' & 'Take Test' Navigation */
+.discover,
+.take-test {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transition: opacity 0.4s ease;
+}
 
-  .discover div,
-  .take-test div {
-    font-size: 14px;
-  }
+.discover div,
+.take-test div {
+  font-size: 14px;
+}
 
-  .discover {
-    transform: translateY(-50%) translateX(50%) ;
-  }
+.discover {
+  transform: translateY(-50%) translateX(50%) ;
+}
 
-  .take-test {
-    transform: translateY(-50%) translateX(-50%) ;
-    right: 0;
-  }
+.take-test {
+  transform: translateY(-50%) translateX(-50%) ;
+  right: 0;
+}
 
 /*  Media Queries */
 @media (min-width: 480px) {
