@@ -1,3 +1,173 @@
 .main {
     height: calc(100vh - 164px);
+    overflow: hidden;
+    position: relative;
+}
+
+.preview-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 32px;
+}
+
+.start-message {
+    /*  */
+    font-size: 12px;
+    font-weight: 700;
+}
+.preview-title {
+    font-size: 12px;
+    margin-bottom: 8px;;
+}
+
+.preview-image {
+    height: 96px;
+    width: 96px;
+    border: 1px dotted #A0A4AB;
+}
+
+.access-options {
+    width: 100%;
+    height: calc(100% - 154px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.camera-access,
+.gallery-access {
+    width: 80%;
+    position: relative;
+}
+
+.gallery-access {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.icon-wrapper {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 8px;
+    position: relative; /* Added to establish positioning context for absolute children */
+}
+
+.icon-wrapper svg {
+    height: 100%;
+    width: 100%;
+}
+
+.gallery-subtitle {
+    text-align: right;
+}
+
+.camera-subtitle,
+.gallery-subtitle {
+    font-size: 12px;
+}
+
+.diamond-one,
+.diamond-two,
+.diamond-three {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px dotted #A0A4AB;
+    pointer-events: none;
+    z-index: -100;
+}
+
+.diamond-one {
+    height: 180px;
+    width: 180px;
+    animation: diamond-rotation 40s linear infinite;
+}
+
+.diamond-two {
+    height: 210px;
+    width: 210px;
+    opacity: 0.8;
+    animation: diamond-rotation 35s linear infinite;
+}
+.diamond-three {
+    height: 240px;
+    width: 240px;
+    opacity: 0.6;
+    animation: diamond-rotation 30s linear infinite;
+}
+
+@keyframes diamond-rotation {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(405deg);
+    }
+}
+
+
+
+/*  Media Queries   */
+@media (min-width: 390px) {
+    .camera-access,
+    .gallery-access {
+        width: auto;
+        align-items: center;
+    }
+    .access-options {
+        justify-content: space-around;
+        padding: 8px 0;
+    }
+}
+
+@media (min-width: 480px) {
+    .icon-wrapper {
+        height: 140px;
+        width: 140px;
+    }
+    .diamond-one {
+        height: 240px;
+        width: 240px;
+    }
+    .diamond-two {
+        height: 280px;
+        width: 280px;
+    }
+    .diamond-three {
+        height: 320px;
+        width: 320px;
+    }
+    .camera-subtitle,
+    .gallery-subtitle {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .preview-image {
+        height: 128px;
+        width: 128px;
+    }
+    .access-options {
+        flex-direction: row;
+    }
+    .diamond-one,
+    .diamond-two,
+    .diamond-three {
+            background-image: 
+        radial-gradient(circle, #545659 1px, transparent 1px),
+        radial-gradient(circle, #545659 1px, transparent 1px),
+        radial-gradient(circle, #545659 1px, transparent 1px),
+        radial-gradient(circle, #545659 1px, transparent 1px);
+    background-size: 12px 1px, 1px 12px, 12px 1px, 1px 12px;
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+    pointer-events: none;
+    z-index: -100;
+    border: none;
+    }
+    
 }

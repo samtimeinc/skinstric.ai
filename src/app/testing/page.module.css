@@ -1,5 +1,9 @@
 .main {
-    height: calc(100vh - 164px);
+    height: calc(100% - 164px);
+    width: 100%;
+    /* Ensures background diamonds don't push page width */
+    overflow: hidden;
+    position: relative;
 }
 
 .start-message {
@@ -92,9 +96,10 @@
 }
 
 .input {
-    max-width: 400px;
+    max-width: 360px;
+    letter-spacing: -1;
     width: 100%;
-    font-size: 48px;
+    font-size: 40px;
     letter-spacing: -0.75;
     border: none;
     border-bottom: 1px solid #A0A4AB;
@@ -156,20 +161,20 @@
 }
 
 .diamond-one {
-    height: 300px;
-    width: 300px;
+    height: 260px;
+    width: 260px;
     animation: diamond-rotation 40s linear infinite;
 }
 
 .diamond-two {
-    height: 340px;
-    width: 340px;
+    height: 300px;
+    width: 300px;
     opacity: 0.8;
     animation: diamond-rotation 35s linear infinite;
 }
 .diamond-three {
-    height: 380px;
-    width: 380px;
+    height: 340px;
+    width: 340px;
     opacity: 0.6;
     animation: diamond-rotation 30s linear infinite;
 }

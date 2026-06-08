@@ -42,8 +42,11 @@
 
 /*  Main Section Styles*/
 .main {
-  height: 100%;
+  flex: 1;
   width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .main .container {
@@ -104,14 +107,14 @@
 
 .diamond-large {
   left: 50%;
-  width: 420px;
-  height: 420px;
+  width: 320px;
+  height: 320px;
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .diamond-small {
-  width: 350px;
-  height: 350px;
+  width: 280px;
+  height: 280px;
   right: 50%;
   transform: translate(50%, -50%) rotate(45deg);
 }
@@ -147,12 +150,14 @@
 }
 @media (min-width: 1024px) {
   .diamond-large {
-    left:-36;
+    left: -36px;
+    width: 420px;
+    height: 420px;
   }
   .diamond-small {
     width: 420px;
     height: 420px;
-    right: -36;
+    right: -36px;
   }
   .enter-experience {
     display: none;
