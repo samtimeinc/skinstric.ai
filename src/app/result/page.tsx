@@ -1,6 +1,8 @@
 import CameraIcon from "@/components/cameraIcon";
 import styles from "./page.module.css"
 import GalleryIcon from "@/components/galleryIcon";
+import CameraPointer from "@/components/cameraPointer";
+import GalleryPointer from "@/components/galleryPointer";
 
 
 const ResultPage = () => {
@@ -26,6 +28,9 @@ const ResultPage = () => {
             <br />
             TO SCAN YOUR FACE
           </div>
+          <div className={styles["camera-pointer"]}>
+            <CameraPointer />
+          </div>
         </div>
         <div className={styles["gallery-access"]}>
           <figure className={styles["icon-wrapper"]}>
@@ -38,6 +43,9 @@ const ResultPage = () => {
             ALLOW AI
             <br />
             TO ACCESS GALLERY
+          </div>
+          <div className={styles["gallery-pointer"]}>
+            <GalleryPointer />
           </div>
         </div>
       </div>
