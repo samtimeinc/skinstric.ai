@@ -4,6 +4,7 @@ import { useState } from 'react';
 import styles from './page.module.css';
 import axios from 'axios';
 import { useTesting } from './TestingContext';
+import Processing from '@/components/processing';
 
 const TestingPage = () => {
     const [name, setName] = useState('');
@@ -67,16 +68,7 @@ const TestingPage = () => {
         {(step === "name" || step === "location") && (
           <div className={styles["form-message"]}>CLICK TO TYPE</div>
         )}
-        {step === "submitting" && (
-          <div className={styles["processing-container"]}>
-            <div className={styles["form-message"]}>Processing submission</div>
-            <div className={styles["loading-dots"]}>
-              <span>.</span>
-              <span>.</span>
-              <span>.</span>
-            </div>
-          </div>
-        )}
+        {step === "submitting" && <Processing />}
         {step === "success" && (
           <div className={styles["processing-container"]}>
             <div className={`${styles["form-message"]} text-[18pt]! text-black!`}>

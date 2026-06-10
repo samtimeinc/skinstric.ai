@@ -2,9 +2,10 @@
 
 import ArrowPrev from './arrowPrev';
 import styles from "../app/testing/page.module.css"
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ArrowNext from './arrowNext';
 import { Step } from '@/app/testing/TestingContext';
+
 
 interface FooterProps {
   step?: Step;
@@ -13,8 +14,11 @@ interface FooterProps {
 const Footer = ({ step }: FooterProps) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const analysisId = searchParams.get('id');
   
   const showProceed = !!(step === 'success');
+  console.log(analysisId);
 
 
   return (
@@ -34,21 +38,40 @@ const Footer = ({ step }: FooterProps) => {
           <div className={styles["label"]}>BACK</div>
         </div>
 
-        {pathname === '/testing' && showProceed && 
-            <div className={styles["nav-button-container"]}>
-                <div className={styles["label"]}>PROCEED</div>
-                <div
-                    onClick={() => router.push("/result")}
-                    className={styles["nav-diamond-proceed"]}
-                ></div>
-                <button
-                    onClick={() => router.push("/result")}
-                    className={styles["proceed-button"]}
-                >
-                    <ArrowNext />
-                </button>
-            </div> 
-        }
+        {pathname === "/testing" && showProceed && (
+          <div className={styles["nav-button-container"]}>
+            <div className={styles["label"]}>PROCEED</div>
+            <div
+              onClick={() => router.push("/result")}
+              className={styles["nav-diamond-proceed"]}
+            ></div>
+            <button
+              onClick={() => router.push("/result")}
+              className={styles["proceed-button"]}
+            >
+              <ArrowNext />
+            </button>
+          </div>
+        )}
+
+        {pathname === "/select" && (
+          <div className={styles["nav-button-container"]}>
+            <div className={styles["label"]}>
+              <span className="hidden sm:inline">GET SUMMARY</span>
+              <span className="inline sm:hidden pl-4">SUM</span>
+            </div>
+            <div
+              onClick={() => router.push(`/summary?id=${analysisId}`)}
+              className={styles["nav-diamond-proceed"]}
+            ></div>
+            <button
+              onClick={() => router.push(`/summary?id=${analysisId}`)}
+              className={styles["proceed-button"]}
+            >
+              <ArrowNext />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
