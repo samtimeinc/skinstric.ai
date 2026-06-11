@@ -1,0 +1,12 @@
+import React from 'react'
+
+const RadioButton = () => {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.293 6L6 11.293L0.707031 6L6 0.707031L11.293 6Z" stroke="#1A1B1C"/>
+</svg>
+
+  )
+}
+
+export default RadioButton

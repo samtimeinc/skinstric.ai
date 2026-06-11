@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { analysisCache } from '@/components/analysis-cache';
 
-const CACHE_LIFETIME_MS = 60 * 60 * 1000; // 1 hour in milliseconds
+const CACHE_LIFETIME_MS = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
 export async function POST(request: Request) {
   try {
@@ -39,12 +39,11 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: false, message: 'Analysis data not found' }, { status: 404 });
     }
 
-    // Check for expiration
+    // Check if data has expired (6 hours)
     if (Date.now() - cachedEntry.timestamp > CACHE_LIFETIME_MS) {
       analysisCache.delete(id); // Remove expired data
       return NextResponse.json({ success: false, message: 'Analysis data expired' }, { status: 404 });
     }
-
     return NextResponse.json({ success: true, data: cachedEntry.data }, { status: 200 });
   } catch (error) {
     console.error('Error retrieving analysis data:', error);

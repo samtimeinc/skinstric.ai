@@ -18,8 +18,14 @@ const Footer = ({ step }: FooterProps) => {
   const analysisId = searchParams.get('id');
   
   const showProceed = !!(step === 'success');
-  console.log(analysisId);
 
+  const handleClickWithAnalysisId = () => {
+    if (analysisId) {
+       router.push(`/summary?id=${analysisId}`);
+    } else {
+        router.push('/testing');
+    }
+  }
 
   return (
     <div className={styles["footer"]}>
@@ -61,11 +67,30 @@ const Footer = ({ step }: FooterProps) => {
               <span className="inline sm:hidden pl-4">SUM</span>
             </div>
             <div
-              onClick={() => router.push(`/summary?id=${analysisId}`)}
+              onClick={() => handleClickWithAnalysisId()}
               className={styles["nav-diamond-proceed"]}
             ></div>
             <button
-              onClick={() => router.push(`/summary?id=${analysisId}`)}
+              onClick={() => handleClickWithAnalysisId()}
+              className={styles["proceed-button"]}
+            >
+              <ArrowNext />
+            </button>
+          </div>
+        )}
+
+        {pathname === "/summary" && (
+          <div className={styles["nav-button-container"]}>
+            <div className={styles["label"]}>
+              <span className="hidden sm:inline">HOME</span>
+              <span className="inline sm:hidden pl-3">HOME</span>
+            </div>
+            <div
+              onClick={() => router.push("/")}
+              className={styles["nav-diamond-proceed"]}
+            ></div>
+            <button
+              onClick={() => router.push("/")}
               className={styles["proceed-button"]}
             >
               <ArrowNext />

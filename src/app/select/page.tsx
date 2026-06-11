@@ -4,12 +4,7 @@ import React from 'react';
 import styles from './page.module.css';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-interface SelectPageProps {
-  // searchParams are automatically passed to Server Components,
-  // but since this is a Client Component, we'll access them via useSearchParams
-}
-
-const SelectPage = ({}: SelectPageProps) => {
+const SelectPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const analysisId = searchParams.get('id');
@@ -20,7 +15,7 @@ const SelectPage = ({}: SelectPageProps) => {
     } else {
       // Handle case where analysisId is missing, e.g., redirect to home or show error
       alert('Analysis ID missing. Please start a new analysis.');
-      router.push('/');
+      router.push("/testing");
     }
   };
 
@@ -43,7 +38,7 @@ const SelectPage = ({}: SelectPageProps) => {
               CONCERNS
             </h3>
           </div>
-          <div className={styles["demographics"]}>
+          <div onClick={() => handleDemographicsClick()} className={styles["demographics"]}>
             <h3 className={styles["option-title"]}>DEMOGRAPHICS</h3>
           </div>
           <div className={styles["weather"]}>
