@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CameraPointer = () => {
+const CameraPointer = (): React.JSX.Element => {
   return (
     <svg
       width="67"

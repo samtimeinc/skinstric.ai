@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CameraIcon = () => {
+const CameraIcon = (): React.JSX.Element => {
   return (
     <svg
       width="136"

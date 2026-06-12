@@ -1,6 +1,8 @@
 
 
-const ArrowNext = () => {
+import React from 'react'
+
+const ArrowNext = (): React.JSX.Element => {
   return (
     <svg
       width="44"

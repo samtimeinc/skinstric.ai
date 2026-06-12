@@ -154,7 +154,7 @@
         radial-gradient(circle, #A0A4AB 1px, transparent 1px),
         radial-gradient(circle, #A0A4AB 1px, transparent 1px),
         radial-gradient(circle, #A0A4AB 1px, transparent 1px);
-    background-size: 12px 1px, 1px 12px, 12px 1px, 1px 12px;
+    background-size: 12px 2px, 2px 12px, 12px 2px, 2px 12px;
     background-position: top, right, bottom, left;
     background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
     pointer-events: none;

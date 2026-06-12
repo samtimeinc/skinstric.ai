@@ -4,7 +4,7 @@ interface CircleGraphProps {
   percentage: number;
 }
 
-const CircleGraph = ({ percentage }: CircleGraphProps) => {
+const CircleGraph = ({ percentage }: CircleGraphProps): React.JSX.Element => {
   // Calculate the circumference based on the path radius (~49.15)
   const circumference = 308.819;
   // Map the 0-100 percentage to the stroke dash offset

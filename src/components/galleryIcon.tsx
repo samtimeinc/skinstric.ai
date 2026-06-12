@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GalleryIcon = () => {
+const GalleryIcon = (): React.JSX.Element => {
   return (
     <svg
       width="136"

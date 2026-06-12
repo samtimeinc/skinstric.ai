@@ -3,7 +3,7 @@ import { analysisCache } from '@/components/analysis-cache';
 
 const CACHE_LIFETIME_MS = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<NextResponse> {
   try {
     const { id, data } = await request.json();
 
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET(request: Request): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');

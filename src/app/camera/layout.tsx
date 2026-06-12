@@ -4,7 +4,7 @@ function CameraLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

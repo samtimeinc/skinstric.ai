@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ArrowPrev = () => {
+const ArrowPrev = (): React.JSX.Element => {
   return (
     <svg
       width="44"

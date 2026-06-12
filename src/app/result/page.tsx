@@ -24,17 +24,17 @@ const ResultPage = (): React.JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const handleGalleryClick = () => {
+  const handleGalleryClick = (): void => {
     setShowPermission(false);
     fileInputRef.current?.click();
   };
 
-  const handleOpenCamera = () => {
+  const handleOpenCamera = (): void => {
     setShowPermission(false);
     router.push("/camera");
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (!file) return;
 

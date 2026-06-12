@@ -6,20 +6,20 @@ import axios from 'axios';
 import { useTesting } from './TestingContext';
 import Processing from '@/components/processing';
 
-const TestingPage = () => {
+const TestingPage = (): React.JSX.Element => {
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [error, setError] = useState('');
     
     const { step, setStep } = useTesting();
 
-  const validateInput = (value: string) => {
+  const validateInput = (value: string): boolean => {
     // Regex allowing only letters and spaces. No numbers or special characters.
     const regex = /^[a-zA-Z\s]+$/;
     return regex.test(value.trim());
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setError('');
 
@@ -41,7 +41,7 @@ const TestingPage = () => {
     }
   };
 
-  const sendDataToAPI = async (data: { name: string; location: string }) => {
+  const sendDataToAPI = async (data: { name: string; location: string }): Promise<void> => {
     try {
       const response = await axios.post(
         "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseOne",

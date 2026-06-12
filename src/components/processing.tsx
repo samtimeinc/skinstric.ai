@@ -1,6 +1,6 @@
 import styles from '../app/testing/page.module.css'; // Still using testing page styles as requested
 
-const Processing = () => {
+const Processing = (): React.JSX.Element => {
   return (
     <div className={styles["processing-container"]}>
       <div className={styles["form-message"]}>Processing submission</div>

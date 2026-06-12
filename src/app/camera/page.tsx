@@ -6,7 +6,11 @@ import axios from "axios";
 import styles from "./page.module.css";
 import Processing from "@/components/processing";
 import { Demographics } from "@/types/Demographics";
-import { CiCamera } from "react-icons/ci";
+import ArrowPrev from "@/components/arrowPrev";
+import RadioButton from "@/components/radioButton";
+import Scan from "@/components/scan";
+import CameraIcon from "@/components/cameraIcon";
+import ArrowNext from "@/components/arrowNext";
 
 interface AnalysisApiResponse {
   success: boolean;
@@ -16,19 +20,24 @@ interface AnalysisApiResponse {
 const CameraPage = (): React.JSX.Element => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [startCamera, setStartCamera] = useState<boolean>(true);
   const router = useRouter();
 
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
+
   useEffect(() => {
-    const startCamera = async () => {
+    let activeStream: MediaStream | null = null;
+
+    const setupCamera = async (): Promise<void> => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: "user" },
           audio: false,
         });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
+        activeStream = mediaStream;
+        setStream(mediaStream);
       } catch (err) {
         console.error("Error accessing camera:", err);
         alert("Could not access camera. Please check permissions.");
@@ -36,18 +45,27 @@ const CameraPage = (): React.JSX.Element => {
       }
     };
 
-    startCamera();
+    setupCamera();
+
+    const timer = setTimeout(() => {
+      setStartCamera(false);
+    }, 3000);
 
     return () => {
-      // Stop all tracks when component unmounts
-      if (videoRef.current?.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach((track) => track.stop());
+      clearTimeout(timer);
+      if (activeStream) {
+        activeStream.getTracks().forEach((track) => track.stop());
       }
     };
   }, [router]);
 
-  const capturePhoto = async () => {
+  useEffect(() => {
+    if (!startCamera && !capturedImage && stream && videoRef.current) {
+      videoRef.current.srcObject = stream;
+    }
+  }, [startCamera, capturedImage, stream]);
+
+  const capturePhoto = async (): Promise<void> => {
     if (!videoRef.current || !canvasRef.current) return;
 
     const context = canvasRef.current.getContext("2d");
@@ -62,13 +80,18 @@ const CameraPage = (): React.JSX.Element => {
 
     // Convert to base64
     const base64String = canvasRef.current.toDataURL("image/jpeg");
-    
+    setCapturedImage(base64String);
+  };
+
+  const submitPhoto = async (): Promise<void> => {
+    if (!capturedImage) return;
+
     setIsProcessing(true);
 
     try {
       const response = await axios.post<AnalysisApiResponse>(
         "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
-        { image: base64String }
+        { image: capturedImage }
       );
 
       const { success, data: demographicData } = response.data;
@@ -93,23 +116,151 @@ const CameraPage = (): React.JSX.Element => {
     }
   };
 
+  const displayInstructions = (): React.JSX.Element => {
+    return (
+      <div className={`${styles["instructions-container"]} ${startCamera ? "text-[#A0A4AB]!" : ""}`}>
+            <div className={styles["instructions-title"]}>
+              TO GET BETTER RESULTS MAKE SURE TO HAVE
+            </div>
+            <div className={styles["instructions-list"]}>
+
+              <div className={styles["instruction-item"]}>
+                <figure className={styles["icon-wrapper"]}>
+                  <RadioButton className={startCamera ? "text-[#A0A4AB]!" : "text-[#1A1B1C]"} />
+                </figure>
+                <div className={styles["instruction-label"]}>NEUTRAL EXPRESSION</div>
+              </div>
+
+              <div className={styles["instruction-item"]}>
+                <figure className={styles["icon-wrapper"]}>
+                  <RadioButton className={startCamera ? "text-[#A0A4AB]!" : "text-[#1A1B1C]"} />
+                </figure>
+                <div className={styles["instruction-label"]}>FRONTAL POSE</div>
+              </div>
+
+              <div className={styles["instruction-item"]}>
+                <figure className={styles["icon-wrapper"]}>
+                  <RadioButton className={startCamera ? "text-[#A0A4AB]!" : "text-[#1A1B1C]"} />
+                </figure>
+                <div className={styles["instruction-label"]}>ADEQUATE LIGHTING</div>
+              </div>
+            </div>
+          </div>
+    )
+  }
+
   return (
     <main className={styles["main"]}>
-      {isProcessing ? (
+      
+      {startCamera ? (
+        <div className={styles["setting-up-camera"]}>
+          <div className={styles["start-camera-container"]}>
+            <div className={styles["start-camera-icon"]}>
+              <CameraIcon />
+            </div>
+            <div className={styles["start-camera-message"]}>
+              SETTING UP CAMERA...
+            </div>
+          </div>
+          <div className={styles["diamond-one"]}></div>
+          <div className={styles["diamond-two"]}></div>
+          <div className={styles["diamond-three"]}></div>
+
+          <>
+            {displayInstructions()}
+          </>
+        </div>
+      ) : (isProcessing ? (
         <div className={styles["processing-container"]}>
           <Processing />
         </div>
-      ) : (
-        <div className={styles["camera-container"]}>
-          <video ref={videoRef} autoPlay playsInline className={styles["video"]} />
-          <canvas ref={canvasRef} style={{ display: "none" }} />
-          <div className={styles["controls"]}>
-            <div onClick={capturePhoto} className={styles["capture-button"]}>
-              <CiCamera className={styles["camera-icon"]} />
+      ) : (capturedImage ? (
+        <div className={styles["preview-container"]}>
+          <img
+            src={capturedImage}
+            alt="Captured preview"
+            className={styles["preview-image"]}
+          />
+          
+          <div className={styles["preview-overlay-controls"]}>
+            <div className={styles["preview-title"]}>
+              GREAT SHOT!
+            </div>
+
+            <div className={styles["preview-retake-container"]}>
+              <div
+                onClick={() => setCapturedImage(null)}
+                className={styles["nav-diamond"]}
+              >
+                <p>RETAKE</p>
+              </div>
+
+              <button 
+                onClick={() => setCapturedImage(null)}
+                className={styles["navigate"]}>
+                <ArrowPrev />
+              </button>
+              <div className={styles["label"]}>BACK</div>
+            </div>
+
+            <div className={styles["preview-submit-container"]}>
+              <div 
+                onClick={submitPhoto} 
+                className={styles["nav-diamond"]}
+              >
+                <p>SUBMIT</p>
+              </div>
+
+              <div className={styles["label"]}>SUBMIT</div>
+              <button onClick={submitPhoto}  className={styles["navigate"]}>
+                <ArrowNext />
+              </button>
             </div>
           </div>
         </div>
-      )}
+      ) : (
+        <div className={styles["camera-container"]}>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            className={styles["video"]}
+          />
+          <canvas ref={canvasRef} style={{ display: "none" }} />
+
+          {/* Shutter Button  */}
+          <div className={styles["controls"]}>
+            <div className={styles["scan-container"]}>
+              <p className={styles["scan-text"]}>TAKE PICTURE</p>
+              <div onClick={capturePhoto} className={styles["scan-icon-wrapper"]}>
+                <Scan />
+              </div>
+            </div>
+          </div>
+
+          {/* Scanning Instructions */}
+          {displayInstructions()}
+
+          {/* Back Button */}
+          <div className={styles["back-button-container"]}>
+            <div
+              onClick={() => router.back()}
+              className={styles["nav-diamond"]}
+            >
+              <p>BACK</p>
+            </div>
+
+            <button
+              onClick={() => router.back()}
+              className={styles["navigate"]}
+            >
+              <ArrowPrev />
+            </button>
+            <div className={styles["label"]}>BACK</div>
+          </div>
+        </div>
+      )))}
+      
     </main>
   );
 };

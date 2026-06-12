@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GalleryPointer = () => {
+const GalleryPointer = (): React.JSX.Element => {
   return (
     <svg
       width="67"

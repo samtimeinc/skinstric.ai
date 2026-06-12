@@ -2,7 +2,7 @@ import styles from "../app/page.module.css";
 import Link from "next/link";
 
 
-const Navbar = () => {
+const Navbar = (): React.JSX.Element => {
   return (
     <nav className={styles["navbar"]}>
       <div className={styles["container"]}>

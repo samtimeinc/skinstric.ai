@@ -3,7 +3,7 @@ import { Gender } from "./gender"
 import { Race } from "./race";
 
 export interface Demographics {
-    "age": Age;
-    "gender": Gender;
-    "race": Race;
+  age: Record<string, number>;
+  gender: Record<string, number>;
+  race: Record<string, number>;
 }

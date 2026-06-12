@@ -8,7 +8,7 @@ import CircleGraph from '@/components/circleGraph'
 import RadioButton from '@/components/radioButton'
 import RadioSelected from '@/components/radioSelection'
     
-const SummaryPage = () => {
+const SummaryPage = (): React.JSX.Element => {
     const [ageData, setAgeData] = useState<Demographics['age'] | null>(null);
     const [raceData, setRaceData] = useState<Demographics['race'] | null>(null);
     const [genderData, setGenderData] = useState<Demographics['gender'] | null>(null);
@@ -25,7 +25,7 @@ const SummaryPage = () => {
     const analysisId = searchParams.get('id');
     const router = useRouter();
 
-    const getTopEntry = (data: object | null) => {
+    const getTopEntry = (data: Record<string, number> | null): { label: string; confidence: number } => {
         if (!data) return { label: "N/A", confidence: 0 };
         const entries = Object.entries(data) as [string, number][];
         if (entries.length === 0) return { label: "N/A", confidence: 0 }; 
@@ -34,7 +34,7 @@ const SummaryPage = () => {
         return { label: sorted[0][0], confidence: Math.round(sorted[0][1] * 100) };
     };
 
-    const handleSettingTrait = (label: string, value: number) => {
+    const handleSettingTrait = (label: string, value: number): void => {
         const userSelection = { label: label, confidence: Math.round(value * 100) };
         displayMode === "race" ? setChosenRace(userSelection) :
         displayMode === "age" ? setChosenAge(userSelection) :

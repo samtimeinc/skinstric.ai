@@ -1,11 +1,92 @@
 .main {
-    height: calc(100vh - 164px);
+    height: calc(100vh - 64px);
     background-color: #000;
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
+    overflow: hidden;
 }
 
+/*  Start camera  */
+.setting-up-camera {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-color: var(--color-background);
+}
+
+.start-camera-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.start-camera-icon svg circle[stroke] {
+    stroke: #AFADAA;
+}
+
+.start-camera-icon svg circle[fill] {
+    fill: #AFADAA;
+}
+
+.start-camera-message {
+    color: #A0A4AB;
+    font-weight: 700;
+}
+
+.diamond-one,
+.diamond-two,
+.diamond-three {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-image: 
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px),
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px),
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px),
+        radial-gradient(circle, #A0A4AB 1px, transparent 1px);
+    background-size: 12px 2px, 2px 12px, 12px 2px, 2px 12px;
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.diamond-one {
+    
+    height: 260px;
+    width: 260px;
+    animation: diamond-rotation 40s linear infinite;
+}
+
+.diamond-two {
+    height: 300px;
+    width: 300px;
+    opacity: 0.8;
+    animation: diamond-rotation 35s linear infinite;
+}
+.diamond-three {
+    height: 340px;
+    width: 340px;
+    opacity: 0.6;
+    animation: diamond-rotation 30s linear infinite;
+}
+
+@keyframes diamond-rotation {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(405deg);
+    }
+}
+
+/*  Camera screen  */
 .camera-container {
     flex: 1;
     position: relative;
@@ -18,26 +99,36 @@
     object-fit: cover;
 }
 
+/*  Shutter Button  */
 .controls {
     position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
 }
 
-.capture-button {
-    background-color: var(--color-background);
-    color: #08327b;
+.scan-container {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    color: var(--color-background);
+}
+
+.scan-text {
+    display: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.scan-icon-wrapper {
     cursor: pointer;
-    border: 4px solid #1e293c;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 32px;
     transition: all 0.15s ease;
+}
+
+.scan-icon-wrapper:hover {
+    scale: 1.05;
 }
 
 .capture-button:hover {
@@ -49,4 +140,206 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/*  Back Navigation */
+.back-button-container,
+.preview-retake-container,
+.preview-submit-container {
+    position: absolute;
+    display: flex;
+    align-items: center; 
+    z-index: 50;
+    bottom: 16px;
+    pointer-events: auto;
+}
+
+.back-button-container,
+.preview-retake-container {
+    left: 16px;
+}
+
+.nav-diamond {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-background);
+    transform: rotate(-45deg);
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigate {
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    /* Inverting the SVG color if it's black */
+    filter: invert(1) brightness(2);
+}
+
+.label,
+.nav-diamond p {
+    color: var(--color-background);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.label {
+    display: none;
+}
+
+.nav-diamond p {
+    transform: rotate(45deg);
+}
+
+/*  Instructions to user    */
+.instructions-container {
+    position: absolute;
+    z-index: 50;
+    bottom: 20;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 460px;
+    width: 100%;
+    color: var(--color-background);
+}
+
+.instructions-title {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.instructions-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.instruction-item {
+    display: flex;
+    justify-content: start;
+    gap: 4px;
+    width: calc(100% / 3);
+}
+
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+    filter: invert(1) brightness(2);
+}
+
+.setting-up-camera .icon-wrapper {
+    filter: none;
+}
+
+.instruction-label {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    flex-wrap: wrap;
+}
+/*  Preview Screen  */
+.preview-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-overlay-controls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.preview-title {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-background);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.preview-submit-container {
+    right: 60px;
+}
+
+.use-photo-diamond {
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.use-photo-diamond:hover {
+    scale: 1.05;
+}
+
+.use-photo-text {
+    display: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/*  Media Queries   */
+@media (min-width: 640px) {
+    .instructions-container {
+        bottom: 80;
+    }
+    .instructions-list {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .instruction-item {
+        width: auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .back-button-container,
+    .preview-retake-container,
+    .preview-submit-container{
+        gap: 16px;
+    }
+    .navigate {
+        display: flex;
+    }
+    .label {
+        display: block;;
+    }
+    .nav-diamond,
+    .nav-diamond p {
+        display: none;
+    }
+    .scan-text {
+        display: block;
+    }
+    .use-photo-text {
+        display: block;
+    }
+    .preview-submit-container {
+        right: 16px;
+    }
 }

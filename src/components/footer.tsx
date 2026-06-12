@@ -11,7 +11,7 @@ interface FooterProps {
   step?: Step;
 }
 
-const Footer = ({ step }: FooterProps) => {
+const Footer = ({ step }: FooterProps): React.JSX.Element => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -19,7 +19,7 @@ const Footer = ({ step }: FooterProps) => {
   
   const showProceed = !!(step === 'success');
 
-  const handleClickWithAnalysisId = () => {
+  const handleClickWithAnalysisId = (): void => {
     if (analysisId) {
        router.push(`/summary?id=${analysisId}`);
     } else {

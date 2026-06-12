@@ -11,7 +11,7 @@ interface TestingContextType {
 
 const TestingContext = createContext<TestingContextType | undefined>(undefined);
 
-export function TestingProvider({ children }: { children: ReactNode }) {
+export function TestingProvider({ children }: { children: ReactNode }): React.JSX.Element {
   const [step, setStep] = useState<Step>('name');
 
   return (
@@ -21,7 +21,7 @@ export function TestingProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export const useTesting = () => {
+export const useTesting = (): TestingContextType => {
   const context = useContext(TestingContext);
   if (!context) throw new Error('useTesting must be used within a TestingProvider');
   return context;

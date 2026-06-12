@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RadioSelection = () => {
+const RadioSelection = (): React.JSX.Element => {
   return (
     <svg
       width="12"

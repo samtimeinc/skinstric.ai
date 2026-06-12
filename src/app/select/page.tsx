@@ -5,7 +5,7 @@ interface SelectPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const SelectPage = async ({ searchParams }: SelectPageProps) => {
+const SelectPage = async ({ searchParams }: SelectPageProps): Promise<React.JSX.Element> => {
   const params = await searchParams;
   const analysisId = params.id as string | undefined;
 
