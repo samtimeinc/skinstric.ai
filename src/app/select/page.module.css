@@ -51,6 +51,9 @@
     cursor: pointer;
     transition: all 0.15s ease;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cosmetic-concerns,
@@ -70,7 +73,6 @@
     scale: 1.03;
     background-color: #c4c5c7;
 }
-
 
 .analysis-options:has(.demographics:hover) {
     border: 1px dotted #A0A4AB;
@@ -92,12 +94,16 @@
     transform: rotate(45deg);
 }
 
+
+
+/*  Media Queries   */
 @media (min-width: 480px) {
     .analysis-options div {
         width: 140px;
         height: 140px;
     }
 }
+
 @media (min-width: 640px) {
     .analysis-options div {
         width: 200px;

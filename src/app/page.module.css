@@ -142,12 +142,15 @@
   right: 0;
 }
 
+
+
 /*  Media Queries */
 @media (min-width: 480px) {
   .title {
     font-size: 60px;
   }
 }
+
 @media (min-width: 1024px) {
   .diamond-large {
     left: -36px;

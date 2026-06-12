@@ -1,7 +1,6 @@
 .main {
     height: calc(100% - 164px);
     width: 100%;
-    /* Ensures background diamonds don't push page width */
     overflow: hidden;
     position: relative;
 }
@@ -199,6 +198,8 @@
   }
 }
 
+
+
 /*  Media Queries   */
 @media (min-width: 640px) {
     .back-button,
@@ -213,7 +214,6 @@
         font-size: 60px;
         letter-spacing: -2;
         max-width: 480px;
-    
     }
 }
 

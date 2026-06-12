@@ -11,19 +11,28 @@ import Processing from "@/components/processing";
 import { useRouter } from "next/navigation";
 import { Demographics } from "@/types/Demographics";
 
+interface AnalysisApiResponse {
+  success: boolean;
+  data: Demographics;
+}
 
-
-const ResultPage = () => {
+const ResultPage = (): React.JSX.Element => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showPermission, setShowPermission] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-
   const handleGalleryClick = () => {
+    setShowPermission(false);
     fileInputRef.current?.click();
   };
+
+  const handleOpenCamera = () => {
+    setShowPermission(false);
+    router.push("/camera");
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -43,14 +52,12 @@ const ResultPage = () => {
       setIsProcessing(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.post<AnalysisApiResponse>(
           "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
           { image: base64String }
         );
         
-        const success: boolean = response.data.success;
-        const demographicData: Demographics = response.data.data;
-
+        const { success, data: demographicData } = response.data;
         if (success) {
           // Generate a unique ID using the built-in crypto API or a fallback
           const analysisId = typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Math.random().toString(36).substring(2);
@@ -74,15 +81,30 @@ const ResultPage = () => {
 
   return (
     <main className={styles["main"]}>
+      <div className={`${styles["permission-wrapper"]} ${showPermission ? styles["ask-permission"] : ""}`}>
+        <div className={styles["permission-message"]}>
+          AI NEEDS ACCESS TO YOUR CAMERA
+        </div>
+
+        <div className={styles["permission-options"]}>
+          <div className={styles["permission-option"]} onClick={() => setShowPermission(false)}>
+            CANCEL
+          </div>
+          <div className={styles["divider"]}></div>
+          <div className={styles["permission-option"]} onClick={() => handleOpenCamera()}>
+            ALLOW
+          </div>
+        </div>
+      </div>
       <div className={styles["preview-wrapper"]}>
         <div className={styles["start-message"]}>TO START ANALYSIS</div>
         <div className={styles["preview"]}>
           <p className={styles["preview-title"]}>Preview</p>
           <div className={styles["preview-image"]}>
             {previewImage && (
-              <img 
-                src={previewImage} 
-                alt="Selected preview" 
+              <img
+                src={previewImage}
+                alt="Selected preview"
                 className={styles["preview-img-content"]}
               />
             )}
@@ -93,8 +115,8 @@ const ResultPage = () => {
         {!isProcessing ? (
           <>
             <div className={styles["camera-access"]}>
-              <figure className={styles["icon-wrapper"]}>
-                <CameraIcon /> {/*  We will come back to this in Phase 3 */}
+              <figure className={styles["icon-wrapper"]} onClick={() => setShowPermission(!showPermission)}>
+                <CameraIcon />
                 <div className={styles["diamond-one"]}></div>
                 <div className={styles["diamond-two"]}></div>
                 <div className={styles["diamond-three"]}></div>
@@ -108,15 +130,19 @@ const ResultPage = () => {
                 <CameraPointer />
               </div>
             </div>
-            <div className={styles["gallery-access"]} onClick={handleGalleryClick}>
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
-                accept="image/*" 
-                className={styles["hidden-input"]} 
+
+            <div className={styles["gallery-access"]}>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept="image/*"
+                className={styles["hidden-input"]}
               />
-              <figure className={styles["icon-wrapper"]}>
+              <figure
+                className={styles["icon-wrapper"]}
+                onClick={handleGalleryClick}
+              >
                 <GalleryIcon />
                 <div className={styles["diamond-one"]}></div>
                 <div className={styles["diamond-two"]}></div>

@@ -1,23 +1,13 @@
-"use client"
-
-import React from 'react';
 import styles from './page.module.css';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
-const SelectPage = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const analysisId = searchParams.get('id');
+interface SelectPageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
-  const handleDemographicsClick = () => {
-    if (analysisId) {
-      router.push(`/summary?id=${analysisId}`);
-    } else {
-      // Handle case where analysisId is missing, e.g., redirect to home or show error
-      alert('Analysis ID missing. Please start a new analysis.');
-      router.push("/testing");
-    }
-  };
+const SelectPage = async ({ searchParams }: SelectPageProps) => {
+  const params = await searchParams;
+  const analysisId = params.id as string | undefined;
 
   return (
     <main className={styles["main"]}>
@@ -38,9 +28,13 @@ const SelectPage = () => {
               CONCERNS
             </h3>
           </div>
-          <div onClick={() => handleDemographicsClick()} className={styles["demographics"]}>
+
+          <Link 
+            href={analysisId ? `/summary?id=${analysisId}` : "/testing"} 
+            className={styles["demographics"]}
+          >
             <h3 className={styles["option-title"]}>DEMOGRAPHICS</h3>
-          </div>
+          </Link>
           <div className={styles["weather"]}>
             <h3 className={styles["option-title"]}>WEATHER</h3>
           </div>

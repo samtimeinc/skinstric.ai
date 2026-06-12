@@ -27,6 +27,7 @@
     padding: 16px 32px;
 }
 
+/*  User Characteristics */
 .sidebar {
     width: 100%;
     margin-bottom: 16px;
@@ -53,6 +54,7 @@
     font-weight: 700;
 }
 
+/*  Circle Graph Visualizer */
 .main-display {
     padding: 8px;
     background-color: #e3e6ec;
@@ -103,6 +105,7 @@
     padding: 16px 0;
 }
 
+/*  AI Confidence Scores    */
 .confidence-list {
     background-color: #e3e6ec;
     border-top: 1px solid #A0A4AB;
@@ -138,6 +141,9 @@
     color: #fff !important;
 }
 
+
+
+/*  Media Queries   */
 @media (min-width: 768px) {
     .display-label {
         display: block;
@@ -155,7 +161,6 @@
         max-width: 500px;
         max-height: 500px;
         padding: 16px;
-    
     }
 }
 
@@ -178,8 +183,6 @@
         width: 100%;
         min-height: 561px;
         margin-bottom: 0;
- 
-    
     }
     .disclaimer {
         position: absolute;

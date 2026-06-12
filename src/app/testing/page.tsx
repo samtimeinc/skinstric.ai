@@ -74,7 +74,9 @@ const TestingPage = () => {
             <div className={`${styles["form-message"]} text-[18pt]! text-black!`}>
               Thank you!
             </div>
-            <div className={`${styles["form-message"]} text-[14pt]! text-gray-500!`}>Proceed for the next step</div>
+            <div className={`${styles["form-message"]} text-[14pt]! text-gray-500!`}>
+              Proceed for the next step
+            </div>
           </div>
         )}
         {error && <div className={styles["error-message"]}>{error}</div>}

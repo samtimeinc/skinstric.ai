@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import axios from 'axios'
 import { Demographics } from '@/types/Demographics'
 import CircleGraph from '@/components/circleGraph'
-import { Race } from '@/types/race'
 import RadioButton from '@/components/radioButton'
 import RadioSelected from '@/components/radioSelection'
     
@@ -99,7 +98,8 @@ const SummaryPage = () => {
           <p>PREDICTED RACE & AGE</p>
         </div>
         <div className={styles["dashboard-grid"]}>
-          {/* Display of identifying traits */}
+
+          {/* User Characterics */}
           <div className={styles["sidebar"]}>
             <div
               className={`${styles["summary-card"]} ${displayMode === "race" ? styles["active"] : ""}`}
@@ -145,7 +145,7 @@ const SummaryPage = () => {
             </div>
           </div>
 
-          {/* AI's confidence scores */}
+          {/* AI confidence scores */}
           <div className={styles["confidence-list"]}>
             <div className={styles["confidence-header"]}>
               <span>
