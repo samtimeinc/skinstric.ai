@@ -59,8 +59,12 @@ const ResultPage = (): React.JSX.Element => {
         
         const { success, data: demographicData } = response.data;
         if (success) {
-          // Generate a unique ID using the built-in crypto API or a fallback
-          const analysisId = typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : Math.random().toString(36).substring(2);
+          // Safely check for crypto.randomUUID in browser/node environments
+          const isCryptoAvailable = typeof window !== 'undefined' && 
+                                   window.crypto && 
+                                   typeof window.crypto.randomUUID === 'function';
+
+          const analysisId = isCryptoAvailable ? window.crypto.randomUUID() : Math.random().toString(36).substring(2);
           
           // Save to our internal temporary server cache
           await axios.post("/api/analysis", {
