@@ -1,6 +1,6 @@
-import { Age } from "./age";
-import { Gender } from "./gender";
-import { Race } from "./race";
+import { Age } from "./Age";
+import { Gender } from "./Gender";
+import { Race } from "./Race";
 
 export interface Demographics {
   age: Age;
