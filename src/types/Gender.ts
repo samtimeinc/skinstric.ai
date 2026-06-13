@@ -4,3 +4,4 @@ export interface Gender {
     "male": number;
     "female": number;
 }
+// Add index signatures for type safety compliance

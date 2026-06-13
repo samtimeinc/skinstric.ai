@@ -9,3 +9,4 @@ export interface Race {
     "southeast asian": number;
     "white": number;
 }
+// Add index signatures for type safety compliance

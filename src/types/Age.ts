@@ -10,3 +10,4 @@ export interface Age {
   "60-69": number;
   "70+": number;
 }
+// Add index signatures for type safety compliance
