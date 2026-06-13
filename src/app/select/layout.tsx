@@ -6,8 +6,8 @@ function SelectLayoutContent({ children }: { children: React.ReactNode }) {
     <>
       <Suspense fallback={<div>Loading...</div>}>
         {children}
+        <Footer />
       </Suspense>
-      <Footer />
     </>
   );
 }

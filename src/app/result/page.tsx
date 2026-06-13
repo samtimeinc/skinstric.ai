@@ -59,12 +59,8 @@ const ResultPage = (): React.JSX.Element => {
         
         const { success, data: demographicData } = response.data;
         if (success) {
-          // Safely check for crypto.randomUUID in browser/node environments
-          const isCryptoAvailable = typeof window !== 'undefined' && 
-                                   window.crypto && 
-                                   typeof window.crypto.randomUUID === 'function';
-
-          const analysisId = isCryptoAvailable ? window.crypto.randomUUID() : Math.random().toString(36).substring(2);
+          // Simple fallback for older browsers, safe here as it only runs on the client
+          const analysisId = window.crypto?.randomUUID?.() || Math.random().toString(36).substring(2);
           
           // Save to our internal temporary server cache
           await axios.post("/api/analysis", {

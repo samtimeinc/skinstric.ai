@@ -1,10 +1,13 @@
 import Footer from "@/components/footer";
+import { Suspense } from "react";
 
 function ResultLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 }
