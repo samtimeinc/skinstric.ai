@@ -1,5 +1,6 @@
 // number value reflects a confidence score. The higher the value, the more confident the AI model is the associated key reflects the user's actual demographic information
 export interface Age {
+  [key: string]: number;
   "0-2": number;
   "3-9": number;
   "10-19": number;
