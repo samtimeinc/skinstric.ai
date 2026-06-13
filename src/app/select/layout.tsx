@@ -1,9 +1,12 @@
 import Footer from "@/components/footer";
+import { Suspense } from "react";
 
 function SelectLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {children}
+      <Suspense fallback={<div>Loading...</div>}>
+        {children}
+      </Suspense>
       <Footer />
     </>
   );
